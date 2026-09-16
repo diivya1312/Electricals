@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Aaisaheb Electricals | Electrical & Lighting Contractor in Pune</title>
+    <meta name="description" content="Aaisaheb Electricals provides professional electrical installation, house wiring, electrical repair, flat and office electrical work, commercial electrical solutions and modern architectural lighting installation in Pune. Call 8767814553.">
+    <meta name="keywords" content="Electrical Contractor Pune, Electrician Pune, House Wiring Pune, Electrical Repair Pune, Commercial Electrical Work Pune, Electrical Panel Work Pune, Lighting Installation Pune, LED Lighting Pune, Decorative Lighting Pune, Electrical Wiring Pune, Rupesh Ughade">
+    <meta name="author" content="Rupesh Baburao Ughade - Aaisaheb Electricals">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Aaisaheb Electricals | Electrical & Lighting Specialist Pune">
+    <meta property="og:description" content="Safe Service. A Promise of Trust. Complete residential, commercial & architectural lighting contractor in Pune.">
+    <meta property="og:image" content="assets/project_img_16.jpg">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Electrician",
+      "name": "Aaisaheb Electricals",
+      "alternateName": "आईसाहेब इलेक्ट्रिकल्स",
+      "image": "assets/project_img_16.jpg",
+      "telephone": "+918767814553",
+      "email": "rughade69@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Gurudwara Chauk, Bijlinagar, near Akurdi Railway Station, Akurdi",
+        "addressLocality": "Pune",
+        "addressRegion": "Maharashtra",
+        "postalCode": "411035",
+        "addressCountry": "IN"
+      },
+      "priceRange": "₹₹",
+      "founder": {
+        "@type": "Person",
+        "name": "Rupesh Baburao Ughade"
+      },
+      "slogan": "सुरक्षित सेवा... विश्वासाची हमी! (Safe Service. A Promise of Trust.)"
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="cursorDot"></div>
+    <div class="custom-cursor-follower" id="cursorFollower">
+        <span class="cursor-text" id="cursorText"></span>
+    </div>
+
+    <!-- Special Continuous Electrical Current Line -->
+    <div class="global-electric-stream">
+        <div class="stream-line"></div>
+        <div class="stream-pulse"></div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 5. CINEMATIC LOADING SCREEN                                  -->
+    <!-- ============================================================ -->
+    <div id="loader" class="loader-screen">
+        <div class="loader-bg-grid"></div>
+        <canvas id="loaderSparkCanvas" class="loader-canvas"></canvas>
+        
+        <div class="loader-content">
+            <div class="loader-logo-wrap">
+                <div class="ae-symbol-glow">
+                    <svg class="ae-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" stroke="var(--clr-yellow)" stroke-width="3" class="logo-circle-dash" />
+                        <path d="M45 22L26 55H46L38 82L68 45H48L58 22Z" fill="var(--clr-yellow)" class="spark-bolt-anim" />
+                        <text x="50" y="65" font-family="'Space Grotesk', sans-serif" font-size="28" font-weight="800" fill="#FFFFFF" text-anchor="middle">AE</text>
+                    </svg>
+                </div>
+                <h1 class="loader-title">AAISAHEB<span>ELECTRICALS</span></h1>
+                <p class="loader-sub">PUNE</p>
+            </div>
+
+            <div class="loader-tagline-wrap">
+                <p class="loader-tagline-mr">"सुरक्षित सेवा... विश्वासाची हमी!"</p>
+                <p class="loader-tagline-en">"SAFE SERVICE. A PROMISE OF TRUST."</p>
+                <div class="glowing-line-travel"></div>
+            </div>
+
+            <div class="loader-progress-bar">
+                <div class="loader-progress-fill" id="loaderFill"></div>
+            </div>
+            <div class="loader-counter" id="loaderPercent">00</div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 6. FLOATING GLASSMORPHISM NAVIGATION                         -->
+    <!-- ============================================================ -->
+    <header class="navbar-wrapper" id="mainHeader">
+        <nav class="navbar glassmorphism container">
+            <!-- Brand Logo -->
+            <a href="#hero" class="nav-brand magnetic-target" data-cursor="AE">
+                <div class="brand-badge">
+                    <span class="badge-ae">AE</span>
+                    <span class="badge-spark">⚡</span>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-main">AAISAHEB</span>
+                    <span class="brand-sub">ELECTRICALS • PUNE</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link active"><span class="nav-dot"></span>HOME</a></li>
+                <li><a href="#about" class="nav-link"><span class="nav-dot"></span>ABOUT</a></li>
+                <li><a href="#services" class="nav-link"><span class="nav-dot"></span>SERVICES</a></li>
+                <li><a href="#engineering" class="nav-link"><span class="nav-dot"></span>ENGINEERING</a></li>
+                <li><a href="#projects" class="nav-link"><span class="nav-dot"></span>PROJECTS</a></li>
+                <li><a href="#gallery" class="nav-link"><span class="nav-dot"></span>GALLERY</a></li>
+                <li><a href="#process" class="nav-link"><span class="nav-dot"></span>PROCESS</a></li>
+                <li><a href="#contact" class="nav-link"><span class="nav-dot"></span>CONTACT</a></li>
+            </ul>
+
+            <!-- Navbar Right Action -->
+            <div class="nav-actions">
+                <a href="#contact" class="btn btn-primary btn-magnetic magnetic-target" data-cursor="QUOTE">
+                    <span>GET A QUOTE</span>
+                    <i data-lucide="arrow-up-right" class="btn-icon"></i>
+                </a>
+
+                <!-- Mobile Hamburger Toggle -->
+                <button class="hamburger-menu" id="hamburgerBtn" aria-label="Toggle Navigation Menu">
+                    <span class="ham-line ham-1"></span>
+                    <span class="ham-line ham-2"></span>
+                    <span class="ham-line ham-3"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-overlay" id="mobileNav">
+        <div class="mobile-nav-bg"></div>
+        <div class="mobile-nav-content container">
+            <div class="mobile-nav-header">
+                <div class="brand-text">
+                    <span class="brand-main">AAISAHEB</span>
+                    <span class="brand-sub">ELECTRICALS</span>
+                </div>
+                <button class="mobile-close-btn" id="mobileCloseBtn">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <ul class="mobile-links">
+                <li class="mob-item"><a href="#hero" class="mob-link">01. HOME</a></li>
+                <li class="mob-item"><a href="#about" class="mob-link">02. ABOUT</a></li>
+                <li class="mob-item"><a href="#services" class="mob-link">03. SERVICES</a></li>
+                <li class="mob-item"><a href="#engineering" class="mob-link">04. ENGINEERING</a></li>
+                <li class="mob-item"><a href="#projects" class="mob-link">05. PROJECTS</a></li>
+                <li class="mob-item"><a href="#gallery" class="mob-link">06. GALLERY</a></li>
+                <li class="mob-item"><a href="#process" class="mob-link">07. PROCESS</a></li>
+                <li class="mob-item"><a href="#contact" class="mob-link">08. CONTACT</a></li>
+            </ul>
+            <div class="mobile-contact-info">
+                <p class="mob-promise">"सुरक्षित सेवा... विश्वासाची हमी!"</p>
+                <div class="mob-ctas">
+                    <a href="tel:8767814553" class="btn btn-secondary w-full"><i data-lucide="phone"></i> CALL 8767814553</a>
+                    <a href="https://wa.me/918767814553" class="btn btn-whatsapp w-full" target="_blank" rel="noopener"><i data-lucide="message-circle"></i> WHATSAPP US</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 7 & 8. HERO SECTION WITH CIRCUIT BACKGROUND EFFECT           -->
+    <!-- ============================================================ -->
+    <section id="hero" class="hero-section">
+        <!-- Real Night Building Photo Hero Background -->
+        <div class="hero-bg-wrapper">
+            <img src="assets/project_img_16.jpg" alt="Surya Hospital Night Architectural Lighting Pune" class="hero-bg-img" id="heroBgImg">
+            <div class="hero-dark-overlay"></div>
+            <div class="hero-vignette"></div>
+            <div class="hero-glow-orb"></div>
+        </div>
+
+        <!-- Circuit Canvas Particle Overlay -->
+        <canvas id="heroCircuitCanvas" class="hero-circuit-canvas"></canvas>
+
+        <div class="hero-container container">
+            <div class="hero-badge">
+                <span class="pulse-indicator"></span>
+                <span class="badge-text">AAISAHEB ELECTRICALS • PUNE</span>
+            </div>
+
+            <h1 class="hero-title">
+                <span class="title-line title-split">POWERING SPACES.</span>
+                <span class="title-line title-split highlight-text">ILLUMINATING</span>
+                <span class="title-line title-split">EXPERIENCES.</span>
+            </h1>
+
+            <p class="hero-description">
+                Professional electrical, wiring, repair and modern architectural lighting solutions for homes, shops, offices, flats and commercial spaces in Pune.
+            </p>
+
+            <div class="hero-cta-group">
+                <a href="#contact" class="btn btn-primary btn-hero magnetic-target" data-cursor="QUOTE">
+                    <span>GET A FREE QUOTE</span>
+                    <i data-lucide="arrow-right" class="btn-arrow"></i>
+                </a>
+                <a href="#projects" class="btn btn-secondary btn-hero magnetic-target" data-cursor="EXPLORE">
+                    <span>VIEW OUR WORK</span>
+                    <i data-lucide="eye"></i>
+                </a>
+            </div>
+
+            <div class="hero-footer-bar">
+                <div class="brand-promise-pill">
+                    <i data-lucide="shield-check" class="promise-icon"></i>
+                    <div class="promise-text">
+                        <span class="mr-text">सुरक्षित सेवा... विश्वासाची हमी!</span>
+                        <span class="en-text">Safe Service. A Promise of Trust.</span>
+                    </div>
+                </div>
+
+                <div class="scroll-down-indicator">
+                    <span class="scroll-label">SCROLL TO DISCOVER</span>
+                    <div class="scroll-line-anim">
+                        <div class="scroll-drop"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-bottom-circuit-line"></div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- BUSINESS OVERVIEW / ABOUT SECTION                            -->
+    <!-- ============================================================ -->
+    <section id="about" class="about-section section-padding">
+        <div class="container">
+            <div class="grid grid-2 items-center gap-xl">
+                <div class="about-image-column">
+                    <div class="poster-card-frame 3d-card" data-tilt>
+                        <img src="assets/project_img_01.jpg" alt="Aaisaheb Electricals Business Poster Pune" class="poster-img">
+                        <div class="frame-corner corner-tl"></div>
+                        <div class="frame-corner corner-tr"></div>
+                        <div class="frame-corner corner-bl"></div>
+                        <div class="frame-corner corner-br"></div>
+                        <div class="glow-border-pulse"></div>
+                    </div>
+                </div>
+
+                <div class="about-text-column">
+                    <div class="section-tag">
+                        <span class="tag-spark">⚡</span>
+                        <span>ABOUT AAISAHEB ELECTRICALS</span>
+                    </div>
+                    <h2 class="section-title">
+                        ELECTRICAL PRECISION.<br>
+                        <span class="highlight-gold">LIGHTING PERFECTION.</span>
+                    </h2>
+                    <p class="about-lead">
+                        Under the leadership of <strong>Rupesh Baburao Ughade</strong>, Aaisaheb Electricals delivers comprehensive, high-standard electrical contracting and architectural lighting solutions across Pune, Maharashtra.
+                    </p>
+                    <p class="about-body">
+                        From high-voltage commercial distribution control panels to intricate residential false ceiling cove lighting and exterior building facade illuminations, we engineer safety, reliability, and visual elegance into every wire, circuit, and fixture.
+                    </p>
+
+                    <div class="about-key-highlights">
+                        <div class="highlight-chip">
+                            <i data-lucide="map-pin" class="chip-icon"></i>
+                            <div>
+                                <strong>Location</strong>
+                                <span>Akurdi / Pune, Maharashtra</span>
+                            </div>
+                        </div>
+                        <div class="highlight-chip">
+                            <i data-lucide="user" class="chip-icon"></i>
+                            <div>
+                                <strong>Proprietor</strong>
+                                <span>Rupesh Baburao Ughade</span>
+                            </div>
+                        </div>
+                        <div class="highlight-chip">
+                            <i data-lucide="phone-call" class="chip-icon"></i>
+                            <div>
+                                <strong>Direct Contact</strong>
+                                <span>8767814553</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 9. SERVICES SECTION                                          -->
+    <!-- ============================================================ -->
+    <section id="services" class="services-section section-padding dark-bg-alt">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-tag">
+                    <span class="tag-spark">⚡</span>
+                    <span>WHAT WE DO</span>
+                </div>
+                <h2 class="section-title">
+                    COMPLETE ELECTRICAL SOLUTIONS<br>
+                    <span class="highlight-text">FOR MODERN SPACES</span>
+                </h2>
+                <p class="section-subtitle">
+                    Full-spectrum electrical engineering, wiring, repair and lighting installation for residential, commercial and architectural projects.
+                </p>
+            </div>
+
+            <div class="services-grid grid grid-3 gap-lg">
+                
+                <!-- Service Card 01 -->
+                <div class="service-card 3d-card magnetic-target" data-cursor="EXPLORE" data-tilt>
+                    <div class="card-glow-beam"></div>
+                    <div class="card-top">
+                        <span class="card-num">01</span>
+                        <div class="card-icon-wrap">
+                            <i data-lucide="zap" class="service-icon"></i>
+                        </div>
+                    </div>
+                    <h3 class="card-title">NEW ELECTRICAL WORK</h3>
+                    <p class="card-desc">
+                        New electrical installations for homes, shops, offices, showrooms, and commercial spaces built to strict safety standards.
+                    </p>
+                    <div class="card-bottom">
+                        <span class="card-action">LEARN MORE</span>
+                        <i data-lucide="arrow-right" class="card-arrow"></i>
+                    </div>
+                </div>
+
+                <!-- Service Card 02 -->
+                <div class="service-card 3d-card magnetic-target" data-cursor="EXPLORE" data-tilt>
+                    <div class="card-glow-beam"></div>
+                    <div class="card-top">
+                        <span class="card-num">02</span>
+                        <div class="card-icon-wrap">
+                            <i data-lucide="wrench" class="service-icon"></i>
+                        </div>
+                    </div>
+                    <h3 class="card-title">ELECTRICAL REPAIR WORK</h3>
+                    <p class="card-desc">
+                        Electrical fault finding, short circuit repair, load balancing, component replacement, and emergency maintenance.
+                    </p>
+                    <div class="card-bottom">
+                        <span class="card-action">LEARN MORE</span>
+                        <i data-lucide="arrow-right" class="card-arrow"></i>
+                    </div>
+                </div>
+
+                <!-- Service Card 03 -->
+                <div class="service-card 3d-card magnetic-target" data-cursor="EXPLORE" data-tilt>
+                    <div class="card-glow-beam"></div>
+                    <div class="card-top">
+                        <span class="card-num">03</span>
+                        <div class="card-icon-wrap">
+                            <i data-lucide="cpu" class="service-icon"></i>
+                        </div>
+                    </div>
+                    <h3 class="card-title">HOUSE WIRING</h3>
+                    <p class="card-desc">
+                        Complete, systematic, and concealed house wiring solutions with premium fire-retardant cables and earthing protection.
+                    </p>
+                    <div class="card-bottom">
+                        <span class="card-action">LEARN MORE</span>
+                        <i data-lucide="arrow-right" class="card-arrow"></i>
+                    </div>
+                </div>
+
+                <!-- Service Card 04 -->
+                <div class="service-card 3d-card magnetic-target" data-cursor="EXPLORE" data-tilt>
+                    <div class="card-glow-beam"></div>
+                    <div class="card-top">
+                        <span class="card-num">04</span>
+                        <div class="card-icon-wrap">
+                            <i data-lucide="building-2" class="service-icon"></i>
+                        </div>
+                    </div>
+                    <h3 class="card-title">FLATS & OFFICES</h3>
+                    <p class="card-desc">
+                        Tailored electrical installations for modern apartments, multi-room flats, corporate offices, and workplace setups.
+                    </p>
+                    <div class="card-bottom">
+                        <span class="card-action">LEARN MORE</span>
+                        <i data-lucide="arrow-right" class="card-arrow"></i>
+                    </div>
+                </div>
+
+                <!-- Service Card 05 -->
+                <div class="service-card 3d-card magnetic-target" data-cursor="EXPLORE" data-tilt>
+                    <div class="card-glow-beam"></div>
+                    <div class="card-top">
+                        <span class="card-num">05</span>
+                        <div class="card-icon-wrap">
+                            <i data-lucide="lightbulb" class="service-icon"></i>
+                        </div>
+                    </div>
+                    <h3 class="card-title">LIGHTING INSTALLATION</h3>
+                    <p class="card-desc">
+                        Modern LED, cove, POP ceiling, chandelier, decorative wall lights, and smart architectural lighting setups.
+                    </p>
+                    <div class="card-bottom">
+                        <span class="card-action">LEARN MORE</span>
+                        <i data-lucide="arrow-right" class="card-arrow"></i>
+                    </div>
+                </div>
+
+                <!-- Service Card 06 -->
+                <div class="service-card 3d-card magnetic-target" data-cursor="EXPLORE" data-tilt>
+                    <div class="card-glow-beam"></div>
+                    <div class="card-top">
+                        <span class="card-num">06</span>
+                        <div class="card-icon-wrap">
+                            <i data-lucide="shield-alert" class="service-icon"></i>
+                        </div>
+                    </div>
+                    <h3 class="card-title">COMMERCIAL ELECTRICAL WORK</h3>
+                    <p class="card-desc">
+                        Heavy commercial power distribution, multi-story panel boards, main breaker systems, and industrial electrical setups.
+                    </p>
+                    <div class="card-bottom">
+                        <span class="card-action">LEARN MORE</span>
+                        <i data-lucide="arrow-right" class="card-arrow"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 10. ELECTRICAL ENGINEERING SECTION                            -->
+    <!-- ============================================================ -->
+    <section id="engineering" class="engineering-section section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-tag">
+                    <span class="tag-spark">⚙️</span>
+                    <span>ENGINEERING EXCELLENCE</span>
+                </div>
+                <h2 class="section-title massive-headline">
+                    POWER BEHIND<br>
+                    <span class="highlight-text">THE LIGHT.</span>
+                </h2>
+                <p class="section-subtitle">
+                    Inside every flawless lighting design is an engineered electrical distribution system built for safety, precision, and longevity.
+                </p>
+            </div>
+
+            <!-- Panel Interactive Showcase Frame -->
+            <div class="panel-showcase-wrapper">
+                <div class="panel-image-container 3d-card" id="panelMaskReveal" data-tilt>
+                    <img src="assets/project_img_18.jpg" alt="Commercial Distribution Control Panel Array Pune" class="panel-main-img">
+                    
+                    <!-- Technical Interactive Overlays & Pins -->
+                    <div class="tech-tag tag-mcb" style="top: 25%; left: 15%;">
+                        <div class="tag-dot"></div>
+                        <div class="tag-line line-right"></div>
+                        <span class="tag-label">MCB CIRCUIT BREAKERS</span>
+                    </div>
+
+                    <div class="tech-tag tag-rccb" style="top: 38%; left: 62%;">
+                        <div class="tag-dot"></div>
+                        <div class="tag-line line-left"></div>
+                        <span class="tag-label">RCCB LEAKAGE PROTECTION</span>
+                    </div>
+
+                    <div class="tech-tag tag-distribution" style="top: 65%; left: 22%;">
+                        <div class="tag-dot"></div>
+                        <div class="tag-line line-right"></div>
+                        <span class="tag-label">DISTRIBUTION ARRAYS</span>
+                    </div>
+
+                    <div class="tech-tag tag-control" style="top: 75%; left: 70%;">
+                        <div class="tag-dot"></div>
+                        <div class="tag-line line-left"></div>
+                        <span class="tag-label">CONTROL PANELS</span>
+                    </div>
+
+                    <div class="tech-tag tag-wiring" style="top: 15%; left: 78%;">
+                        <div class="tag-dot"></div>
+                        <div class="tag-line line-down"></div>
+                        <span class="tag-label">CABLE MANAGEMENT</span>
+                    </div>
+
+                    <div class="tech-tag tag-protection" style="top: 85%; left: 45%;">
+                        <div class="tag-dot"></div>
+                        <div class="tag-line line-up"></div>
+                        <span class="tag-label">ISOLATOR PROTECTION</span>
+                    </div>
+
+                    <div class="panel-overlay-grid"></div>
+                </div>
+
+                <!-- Secondary Engineering Panels Grid -->
+                <div class="grid grid-2 gap-lg margin-top-lg">
+                    <div class="sub-panel-card 3d-card" data-tilt>
+                        <img src="assets/project_img_13.jpg" alt="Distribution Box Wiring Close Up" class="sub-panel-img">
+                        <div class="sub-panel-info">
+                            <h4>SYSTEMATIC DB WIRING</h4>
+                            <p>Phase-balanced distribution box with colour-coded wiring harness.</p>
+                        </div>
+                    </div>
+                    <div class="sub-panel-card 3d-card" data-tilt>
+                        <img src="assets/project_img_22.jpg" alt="Outdoor Commercial Main Meter Control Panel" class="sub-panel-img">
+                        <div class="sub-panel-info">
+                            <h4>COMMERCIAL MAIN METER PANELS</h4>
+                            <p>Heavy-duty weatherproof outdoor commercial breaker panel with status indicators.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 11. FEATURED COMMERCIAL PROJECT: SURYA HOSPITAL              -->
+    <!-- ============================================================ -->
+    <section id="projects" class="featured-project-section section-padding dark-bg-alt">
+        <div class="container">
+            <div class="featured-project-header grid grid-2 items-center gap-md margin-bottom-lg">
+                <div>
+                    <div class="section-tag">
+                        <span class="tag-spark">🌟</span>
+                        <span>FEATURED COMMERCIAL PROJECT</span>
+                    </div>
+                    <h2 class="project-title-large">SURYA HOSPITAL</h2>
+                </div>
+                <div class="project-meta-box">
+                    <div class="meta-item">
+                        <span class="meta-label">CATEGORY</span>
+                        <span class="meta-val">COMMERCIAL ELECTRICAL + ARCHITECTURAL LIGHTING</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">LOCATION</span>
+                        <span class="meta-val">PUNE, MAHARASHTRA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Project Slider / Carousel Showcase -->
+            <div class="surya-carousel-wrapper">
+                <div class="surya-slide-container" id="suryaSlider">
+                    
+                    <div class="surya-slide active" data-index="0">
+                        <img src="assets/project_img_16.jpg" alt="Surya Hospital Pune Night Illumination View 1" class="surya-img">
+                        <div class="slide-caption">
+                            <h3>BUILDING FACADE STRING ILLUMINATION</h3>
+                            <p>Complete multi-story night facade lighting setup with blue & red neon signage integration.</p>
+                        </div>
+                    </div>
+
+                    <div class="surya-slide" data-index="1">
+                        <img src="assets/project_img_17.jpg" alt="Surya Hospital Pune Night Illumination View 2" class="surya-img">
+                        <div class="slide-caption">
+                            <h3>COMMERCIAL NIGHT LIGHTING PROFILE</h3>
+                            <p>Precision string lights engineered across all exterior vertical pillars.</p>
+                        </div>
+                    </div>
+
+                    <div class="surya-slide" data-index="2">
+                        <img src="assets/project_img_19.jpg" alt="Surya Hospital Pune Night Illumination View 3" class="surya-img">
+                        <div class="slide-caption">
+                            <h3>ARCHITECTURAL POWER & LIGHTING</h3>
+                            <p>High-visibility emergency and exterior lighting network.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Slider Controls -->
+                <div class="slider-controls">
+                    <button class="slider-btn prev-btn" id="suryaPrevBtn" aria-label="Previous Slide">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <div class="slider-dots" id="suryaDots">
+                        <span class="dot active" data-slide="0"></span>
+                        <span class="dot" data-slide="1"></span>
+                        <span class="dot" data-slide="2"></span>
+                    </div>
+                    <button class="slider-btn next-btn" id="suryaNextBtn" aria-label="Next Slide">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 12. LIGHTING SHOWCASE (ASYMMETRIC MAGAZINE EDITORIAL)        -->
+    <!-- ============================================================ -->
+    <section class="lighting-showcase-section section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-tag">
+                    <span class="tag-spark">✨</span>
+                    <span>LIGHTING ARCHITECTURE</span>
+                </div>
+                <h2 class="section-title massive-headline">
+                    WE DON'T JUST INSTALL LIGHTS.<br>
+                    <span class="highlight-gold">WE CREATE ATMOSPHERE.</span>
+                </h2>
+            </div>
+
+            <!-- Asymmetric Magazine Layout Grid -->
+            <div class="magazine-grid">
+                
+                <div class="mag-item item-large 3d-card" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_09.jpg" alt="Luxury Ring Chandelier Living Room" class="mag-img">
+                    <div class="mag-overlay">
+                        <span class="mag-cat">CHANDELIERS</span>
+                        <h4 class="mag-title">Multi-Ring Modern Crystal Chandelier</h4>
+                    </div>
+                </div>
+
+                <div class="mag-item item-tall 3d-card" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_10.jpg" alt="Double Height Foyer Grand Chandelier" class="mag-img">
+                    <div class="mag-overlay">
+                        <span class="mag-cat">FOYER LIGHTING</span>
+                        <h4 class="mag-title">High-Ceiling Grand Entryway Chandelier</h4>
+                    </div>
+                </div>
+
+                <div class="mag-item item-wide 3d-card" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_03.jpg" alt="Hexagonal Acoustic Wall Light Design" class="mag-img">
+                    <div class="mag-overlay">
+                        <span class="mag-cat">DECORATIVE WALLS</span>
+                        <h4 class="mag-title">Hexagonal Acoustic Wall Panel & Switches</h4>
+                    </div>
+                </div>
+
+                <div class="mag-item item-portrait 3d-card" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_02.jpg" alt="Architectural Wall Sconces Staircase" class="mag-img">
+                    <div class="mag-overlay">
+                        <span class="mag-cat">WALL SCONCES</span>
+                        <h4 class="mag-title">Up-Down Architectural Staircase Sconces</h4>
+                    </div>
+                </div>
+
+                <div class="mag-item item-landscape 3d-card" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_08.jpg" alt="Terrace Soffit Recessed Starburst Spotlights" class="mag-img">
+                    <div class="mag-overlay">
+                        <span class="mag-cat">CEILING SOFFIT</span>
+                        <h4 class="mag-title">Wooden Ceiling Recessed Starburst Spotlights</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 13 & 15. LIGHT TURN-ON ANIMATION & OUTDOOR LIGHTING          -->
+    <!-- ============================================================ -->
+    <section class="outdoor-lighting-section section-padding dark-bg-alt" id="outdoorLightingSection">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">
+                    <span class="tag-spark">🌙</span>
+                    <span>OUTDOOR & TERRACE LIGHTING</span>
+                </div>
+                <h2 class="section-title">
+                    LIGHT BEYOND<br>
+                    <span class="highlight-text">THE WALLS.</span>
+                </h2>
+                <p class="section-subtitle">
+                    Scroll down to witness the sequential illumination of terrace bollard lighting fixtures.
+                </p>
+            </div>
+
+            <!-- Light Turn-On Interactive Stage -->
+            <div class="light-stage-container" id="lightStage">
+                <img src="assets/project_img_15.jpg" alt="Terrace Outdoor Bollard Lights Sequence" class="stage-bg-img">
+                
+                <!-- Glowing Overlay Beams that Turn On Sequentially -->
+                <div class="bollard-glow-point point-1" id="bollard1">
+                    <div class="light-beam"></div>
+                    <div class="light-label">LIGHT 01 ON</div>
+                </div>
+                <div class="bollard-glow-point point-2" id="bollard2">
+                    <div class="light-beam"></div>
+                    <div class="light-label">LIGHT 02 ON</div>
+                </div>
+                <div class="bollard-glow-point point-3" id="bollard3">
+                    <div class="light-beam"></div>
+                    <div class="light-label">LIGHT 03 ON</div>
+                </div>
+                <div class="bollard-glow-point point-4" id="bollard4">
+                    <div class="light-beam"></div>
+                    <div class="light-label">LIGHT 04 ON</div>
+                </div>
+            </div>
+
+            <div class="grid grid-2 gap-md margin-top-lg">
+                <div class="outdoor-card 3d-card" data-tilt>
+                    <img src="assets/project_img_07.jpg" alt="Terrace Glass Railing Bollards" class="outdoor-img">
+                    <div class="outdoor-card-info">
+                        <h4>GLASS RAILING BOLLARD LIGHTING</h4>
+                        <p>Modern black cylindrical garden bollards mounted along glass balustrades.</p>
+                    </div>
+                </div>
+                <div class="outdoor-card 3d-card" data-tilt>
+                    <img src="assets/project_img_26.jpg" alt="Slatted Wooden Porch Recessed Spotlights" class="outdoor-img">
+                    <div class="outdoor-card-info">
+                        <h4>SLATTED PORCH RECESSED LIGHTING</h4>
+                        <p>Warm LED spot fixtures recessed into exterior wooden patio ceiling soffits.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 14. RESIDENTIAL LIGHTING SECTION                             -->
+    <!-- ============================================================ -->
+    <section class="residential-lighting-section section-padding">
+        <div class="container">
+            <div class="grid grid-2 items-center gap-xl">
+                <div class="res-text-col">
+                    <div class="section-tag">
+                        <span class="tag-spark">🛋️</span>
+                        <span>LUXURY INTERIORS</span>
+                    </div>
+                    <h2 class="section-title">
+                        LIGHTING DESIGNED FOR<br>
+                        <span class="highlight-gold">THE WAY YOU LIVE.</span>
+                    </h2>
+                    <p class="res-body">
+                        Transform your home into a sanctuary of warmth and elegance. We specialize in custom false ceiling cove strip lighting, ambient recessed spots, and statement chandeliers that highlight interior architecture.
+                    </p>
+                    
+                    <ul class="res-feature-list">
+                        <li><i data-lucide="check-circle" class="check-icon"></i> Custom POP Cove & Concealed LED Strips</li>
+                        <li><i data-lucide="check-circle" class="check-icon"></i> Heavy Chandelier Ceiling Anchor Wiring</li>
+                        <li><i data-lucide="check-circle" class="check-icon"></i> Dimmable Ambient & Mood Lighting Circuits</li>
+                        <li><i data-lucide="check-circle" class="check-icon"></i> Smart Switch & Automation Compatibility</li>
+                    </ul>
+                </div>
+
+                <div class="res-image-col">
+                    <div class="res-img-frame 3d-card" data-tilt>
+                        <img src="assets/project_img_23.jpg" alt="Luxury Residential Chandelier & Strip Lighting" class="res-img" id="resZoomImg">
+                        <div class="gold-ambient-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 16. REAL WORK / ON-SITE INSTALLATION SECTION                -->
+    <!-- ============================================================ -->
+    <section class="onsite-section section-padding dark-bg-alt">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-tag">
+                    <span class="tag-spark">🛠️</span>
+                    <span>AUTHENTIC CRAFTSMANSHIP</span>
+                </div>
+                <h2 class="section-title massive-headline">
+                    BUILT<br>
+                    <span class="highlight-text">ON SITE.</span>
+                </h2>
+                <p class="section-subtitle">
+                    Precision is in the details. Genuine photographs of our team executing precision electrical installations on location in Pune.
+                </p>
+            </div>
+
+            <div class="grid grid-3 gap-lg margin-top-lg">
+                <div class="onsite-card 3d-card" data-tilt>
+                    <img src="assets/project_img_05.jpg" alt="Worker Installing Terrace Bollard Light" class="onsite-img">
+                    <div class="onsite-info">
+                        <h4>TERRACE BOLLARD FITTING</h4>
+                        <p>Technician securely wiring and anchoring an outdoor bollard fixture.</p>
+                    </div>
+                </div>
+
+                <div class="onsite-card 3d-card" data-tilt>
+                    <img src="assets/project_img_06.jpg" alt="Worker Precision Electrical Wiring" class="onsite-img">
+                    <div class="onsite-info">
+                        <h4>ON-SITE WIRE TERMINATION</h4>
+                        <p>Careful wire stripping and water-tight junction sealing.</p>
+                    </div>
+                </div>
+
+                <div class="onsite-card 3d-card" data-tilt>
+                    <img src="assets/project_img_04.jpg" alt="Worker Elevator Ceiling Lighting Fitting" class="onsite-img">
+                    <div class="onsite-info">
+                        <h4>ELEVATOR LIFT LIGHTING</h4>
+                        <p>Custom brass & mirror elevator ceiling ornament light fitting.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 17. INTERACTIVE BEFORE / AFTER SLIDER                        -->
+    <!-- ============================================================ -->
+    <section class="before-after-section section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-tag">
+                    <span class="tag-spark">🌗</span>
+                    <span>VISUAL TRANSFORMATION</span>
+                </div>
+                <h2 class="section-title">
+                    THE POWER OF<br>
+                    <span class="highlight-gold">ILLUMINATION</span>
+                </h2>
+                <p class="section-subtitle">
+                    Drag the slider to see how architectural lighting transforms spaces from plain structures into illuminated landmarks.
+                </p>
+            </div>
+
+            <div class="ba-slider-container" id="baContainer">
+                <!-- After Image (Fully Illuminated Surya Hospital) -->
+                <div class="ba-img-layer after-layer">
+                    <img src="assets/project_img_16.jpg" alt="Illuminated Building After Lighting Installation" class="ba-img">
+                    <span class="ba-badge badge-after">AFTER • ILLUMINATED</span>
+                </div>
+
+                <!-- Before Image (Darker / Unlit Exterior) -->
+                <div class="ba-img-layer before-layer" id="baBeforeLayer">
+                    <img src="assets/project_img_17.jpg" alt="Unlit Building Before Lighting Installation" class="ba-img ba-darkened">
+                    <span class="ba-badge badge-before">BEFORE • UNLIT</span>
+                </div>
+
+                <!-- Draggable Handle Divider -->
+                <div class="ba-handle" id="baHandle">
+                    <div class="handle-line"></div>
+                    <div class="handle-button">
+                        <i data-lucide="chevrons-left-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 18. WORK PROCESS TIMELINE                                    -->
+    <!-- ============================================================ -->
+    <section id="process" class="process-section section-padding dark-bg-alt">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-tag">
+                    <span class="tag-spark">⚡</span>
+                    <span>OUR SYSTEMATIC APPROACH</span>
+                </div>
+                <h2 class="section-title massive-headline">
+                    FROM IDEA<br>
+                    <span class="highlight-text">TO ILLUMINATION.</span>
+                </h2>
+            </div>
+
+            <!-- Futuristic 6-Step Connected Timeline -->
+            <div class="process-timeline-wrapper">
+                <div class="timeline-connecting-line" id="timelineLine">
+                    <div class="timeline-line-pulse"></div>
+                </div>
+
+                <div class="process-grid grid grid-3 gap-lg">
+                    
+                    <div class="process-step-card 3d-card" data-tilt>
+                        <div class="step-num">01</div>
+                        <h3 class="step-title">SITE VISIT</h3>
+                        <p class="step-desc">Detailed on-site inspection, measurement, electrical load calculation, and architectural assessment.</p>
+                    </div>
+
+                    <div class="process-step-card 3d-card" data-tilt>
+                        <div class="step-num">02</div>
+                        <h3 class="step-title">REQUIREMENT ANALYSIS</h3>
+                        <p class="step-desc">Understanding power distribution needs, aesthetic lighting goals, budget criteria, and timeline.</p>
+                    </div>
+
+                    <div class="process-step-card 3d-card" data-tilt>
+                        <div class="step-num">03</div>
+                        <h3 class="step-title">PLANNING</h3>
+                        <p class="step-desc">Circuit design, wire gauge selection, DB panel layout, breaker specifications, and lighting plan.</p>
+                    </div>
+
+                    <div class="process-step-card 3d-card" data-tilt>
+                        <div class="step-num">04</div>
+                        <h3 class="step-title">INSTALLATION</h3>
+                        <p class="step-desc">Precision wall chasing, concealed conduit piping, heavy wire pulling, and DB box dressing.</p>
+                    </div>
+
+                    <div class="process-step-card 3d-card" data-tilt>
+                        <div class="step-num">05</div>
+                        <h3 class="step-title">TESTING</h3>
+                        <p class="step-desc">Rigorous insulation resistance testing, earth pit verification, phase load balancing, and thermal checks.</p>
+                    </div>
+
+                    <div class="process-step-card 3d-card" data-tilt>
+                        <div class="step-num">06</div>
+                        <h3 class="step-title">HANDOVER</h3>
+                        <p class="step-desc">Final fixture fitting, illumination turn-on test, client walkthrough, and safety certification.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 19. WHY CHOOSE US                                            -->
+    <!-- ============================================================ -->
+    <section class="why-us-section section-padding">
+        <div class="container">
+            <div class="grid grid-2 items-center gap-xl">
+                <div>
+                    <div class="section-tag">
+                        <span class="tag-spark">🛡️</span>
+                        <span>THE AAISAHEB COMMITMENT</span>
+                    </div>
+                    <h2 class="section-title">
+                        WHY CHOOSE<br>
+                        <span class="highlight-gold">AAISAHEB ELECTRICALS?</span>
+                    </h2>
+                    <p class="why-subtitle">
+                        We build our reputation on quality, safety, and unwavering dedication to every client requirement across Pune.
+                    </p>
+
+                    <div class="why-claims-list">
+                        <div class="claim-item">
+                            <i data-lucide="check-circle-2" class="claim-icon"></i>
+                            <div>
+                                <h4>Quality Materials</h4>
+                                <p>Only heavy-gauge FRLS copper wires, ISI-marked conduits, and certified MCBs used.</p>
+                            </div>
+                        </div>
+
+                        <div class="claim-item">
+                            <i data-lucide="shield-check" class="claim-icon"></i>
+                            <div>
+                                <h4>Safe & Reliable Work</h4>
+                                <p>Strict adherence to electrical insulation, RCCB earth leakage protection, and safety norms.</p>
+                            </div>
+                        </div>
+
+                        <div class="claim-item">
+                            <i data-lucide="clock" class="claim-icon"></i>
+                            <div>
+                                <h4>Timely Completion</h4>
+                                <p>Systematic work scheduling ensuring project completion within agreed deadlines.</p>
+                            </div>
+                        </div>
+
+                        <div class="claim-item">
+                            <i data-lucide="thumbs-up" class="claim-icon"></i>
+                            <div>
+                                <h4>Excellent Service</h4>
+                                <p>Prompt technical support, site visits, and clear communication throughout the project.</p>
+                            </div>
+                        </div>
+
+                        <div class="claim-item">
+                            <i data-lucide="smile" class="claim-icon"></i>
+                            <div>
+                                <h4>Customer Satisfaction</h4>
+                                <p>Clean finishing, neat cable dressing, and transparent pricing for every customer.</p>
+                            </div>
+                        </div>
+
+                        <div class="claim-item">
+                            <i data-lucide="home" class="claim-icon"></i>
+                            <div>
+                                <h4>Residential & Commercial Electrical Solutions</h4>
+                                <p>Equipped for everything from 1 BHK concealed flat wiring to multi-story commercial panels.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="why-us-visual">
+                    <div class="poster-card-frame 3d-card" data-tilt>
+                        <img src="assets/project_img_18.jpg" alt="Aaisaheb Electricals Commercial Control Panel Array" class="why-visual-img">
+                        <div class="visual-badge">
+                            <i data-lucide="zap" class="badge-icon"></i>
+                            <span>SAFE SERVICE • PROMISE OF TRUST</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 20. BRAND PROMISE SECTION                                    -->
+    <!-- ============================================================ -->
+    <section class="brand-promise-section section-padding text-center">
+        <div class="container">
+            <div class="glowing-circle-wrapper">
+                <div class="circle-spark-anim"></div>
+                <div class="promise-circle-content">
+                    <span class="promise-mr">सुरक्षित सेवा...<br>विश्वासाची हमी!</span>
+                    <span class="promise-divider"></span>
+                    <span class="promise-en">SAFE SERVICE.<br>A PROMISE OF TRUST.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 21. PROJECT GALLERY WITH LIGHTBOX MODAL                      -->
+    <!-- ============================================================ -->
+    <section id="gallery" class="gallery-section section-padding dark-bg-alt">
+        <div class="container">
+            <div class="section-header text-center">
+                <div class="section-tag">
+                    <span class="tag-spark">🖼️</span>
+                    <span>PORTFOLIO SHOWCASE</span>
+                </div>
+                <h2 class="section-title">REAL PROJECT GALLERY</h2>
+                <p class="section-subtitle">
+                    Explore our real installation photographs across electrical panels, chandeliers, outdoor lighting, and commercial facade projects.
+                </p>
+
+                <!-- Filter Tabs -->
+                <div class="gallery-filters" id="galleryFilters">
+                    <button class="filter-btn active" data-filter="all">ALL</button>
+                    <button class="filter-btn" data-filter="electrical">ELECTRICAL</button>
+                    <button class="filter-btn" data-filter="lighting">LIGHTING</button>
+                    <button class="filter-btn" data-filter="residential">RESIDENTIAL</button>
+                    <button class="filter-btn" data-filter="commercial">COMMERCIAL</button>
+                    <button class="filter-btn" data-filter="outdoor">OUTDOOR</button>
+                </div>
+            </div>
+
+            <!-- Gallery Masonry Grid -->
+            <div class="gallery-masonry" id="galleryGrid">
+                
+                <div class="gallery-item electrical commercial 3d-card" data-category="ELECTRICAL / COMMERCIAL" data-src="assets/project_img_18.jpg" data-title="Commercial Distribution Panel Array" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_18.jpg" alt="Commercial DB Panel Array" class="gal-img" loading="lazy">
+                    <div class="gal-overlay">
+                        <span class="gal-cat">ELECTRICAL</span>
+                        <h4 class="gal-title">Commercial DB Control Panel Array</h4>
+                    </div>
+                </div>
+
+                <div class="gallery-item lighting residential 3d-card" data-category="LIGHTING / RESIDENTIAL" data-src="assets/project_img_09.jpg" data-title="Multi-Ring Crystal Chandelier" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_09.jpg" alt="Luxury Crystal Chandelier" class="gal-img" loading="lazy">
+                    <div class="gal-overlay">
+                        <span class="gal-cat">LIGHTING</span>
+                        <h4 class="gal-title">Multi-Ring Modern Crystal Chandelier</h4>
+                    </div>
+                </div>
+
+                <div class="gallery-item lighting residential 3d-card" data-category="LIGHTING / RESIDENTIAL" data-src="assets/project_img_10.jpg" data-title="High-Ceiling Grand Entryway Chandelier" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_10.jpg" alt="Grand Foyer Chandelier" class="gal-img" loading="lazy">
+                    <div class="gal-overlay">
+                        <span class="gal-cat">LIGHTING</span>
+                        <h4 class="gal-title">High-Ceiling Grand Foyer Chandelier</h4>
+                    </div>
+                </div>
+
+                <div class="gallery-item commercial outdoor lighting 3d-card" data-category="COMMERCIAL / OUTDOOR" data-src="assets/project_img_16.jpg" data-title="Surya Hospital Building Night Illumination" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_16.jpg" alt="Surya Hospital Facade Illumination" class="gal-img" loading="lazy">
+                    <div class="gal-overlay">
+                        <span class="gal-cat">COMMERCIAL</span>
+                        <h4 class="gal-title">Surya Hospital Building Facade Illumination</h4>
+                    </div>
+                </div>
+
+                <div class="gallery-item electrical 3d-card" data-category="ELECTRICAL" data-src="assets/project_img_13.jpg" data-title="Distribution Box Phase Wiring" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_13.jpg" alt="DB Box Phase Wiring" class="gal-img" loading="lazy">
+                    <div class="gal-overlay">
+                        <span class="gal-cat">ELECTRICAL</span>
+                        <h4 class="gal-title">Distribution Box Phase Wiring</h4>
+                    </div>
+                </div>
+
+                <div class="gallery-item outdoor lighting 3d-card" data-category="OUTDOOR / LIGHTING" data-src="assets/project_img_15.jpg" data-title="Terrace Balustrade Bollard Lights" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_15.jpg" alt="Terrace Bollard Lights" class="gal-img" loading="lazy">
+                    <div class="gal-overlay">
+                        <span class="gal-cat">OUTDOOR</span>
+                        <h4 class="gal-title">Terrace Balustrade Bollard Lights</h4>
+                    </div>
+                </div>
+
+                <div class="gallery-item electrical 3d-card" data-category="ELECTRICAL" data-src="assets/project_img_22.jpg" data-title="Heavy Outdoor Commercial Main Meter Panel" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_22.jpg" alt="Commercial Main Meter Panel" class="gal-img" loading="lazy">
+                    <div class="gal-overlay">
+                        <span class="gal-cat">ELECTRICAL</span>
+                        <h4 class="gal-title">Outdoor Commercial Main Meter Panel</h4>
+                    </div>
+                </div>
+
+                <div class="gallery-item lighting residential 3d-card" data-category="LIGHTING / RESIDENTIAL" data-src="assets/project_img_02.jpg" data-title="Up-Down Architectural Staircase Sconces" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_02.jpg" alt="Staircase Wall Sconces" class="gal-img" loading="lazy">
+                    <div class="gal-overlay">
+                        <span class="gal-cat">LIGHTING</span>
+                        <h4 class="gal-title">Up-Down Staircase Sconces</h4>
+                    </div>
+                </div>
+
+                <div class="gallery-item lighting residential 3d-card" data-category="LIGHTING / RESIDENTIAL" data-src="assets/project_img_03.jpg" data-title="Hexagonal Acoustic Wall & Switches" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_03.jpg" alt="Hexagonal Acoustic Wall Lighting" class="gal-img" loading="lazy">
+                    <div class="gal-overlay">
+                        <span class="gal-cat">LIGHTING</span>
+                        <h4 class="gal-title">Hexagonal Acoustic Wall Panel</h4>
+                    </div>
+                </div>
+
+                <div class="gallery-item outdoor lighting 3d-card" data-category="OUTDOOR / LIGHTING" data-src="assets/project_img_08.jpg" data-title="Terrace Ceiling Soffit Recessed Spotlights" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_08.jpg" alt="Terrace Ceiling Spotlights" class="gal-img" loading="lazy">
+                    <div class="gal-overlay">
+                        <span class="gal-cat">OUTDOOR</span>
+                        <h4 class="gal-title">Wooden Ceiling Recessed Spotlights</h4>
+                    </div>
+                </div>
+
+                <div class="gallery-item residential lighting 3d-card" data-category="RESIDENTIAL / LIGHTING" data-src="assets/project_img_11.jpg" data-title="POP False Ceiling Ambient Cove Design" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_11.jpg" alt="POP False Ceiling Cove Lighting" class="gal-img" loading="lazy">
+                    <div class="gal-overlay">
+                        <span class="gal-cat">RESIDENTIAL</span>
+                        <h4 class="gal-title">POP False Ceiling Ambient Cove</h4>
+                    </div>
+                </div>
+
+                <div class="gallery-item outdoor 3d-card" data-category="OUTDOOR" data-src="assets/project_img_26.jpg" data-title="Slatted Patio Recessed Spot Fixtures" data-tilt data-cursor="VIEW">
+                    <img src="assets/project_img_26.jpg" alt="Slatted Patio Ceiling Spotlights" class="gal-img" loading="lazy">
+                    <div class="gal-overlay">
+                        <span class="gal-cat">OUTDOOR</span>
+                        <h4 class="gal-title">Slatted Patio Recessed Spotlights</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Fullscreen Lightbox Modal -->
+    <div class="lightbox-modal" id="lightboxModal">
+        <div class="lightbox-overlay" id="lightboxOverlay"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose" aria-label="Close Lightbox">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="lightbox-image-wrap">
+                <img src="" alt="Enlarged Project View" id="lightboxImg" class="lightbox-img">
+            </div>
+            <div class="lightbox-info">
+                <span class="lightbox-cat" id="lightboxCat">CATEGORY</span>
+                <h3 class="lightbox-title" id="lightboxTitle">Project Title</h3>
+            </div>
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous Image">
+                <i data-lucide="chevron-left"></i>
+            </button>
+            <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next Image">
+                <i data-lucide="chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 22. VIDEO SHOWCASE SECTION                                   -->
+    <!-- ============================================================ -->
+    <section class="video-section section-padding text-center">
+        <div class="container">
+            <div class="section-tag">
+                <span class="tag-spark">🎬</span>
+                <span>ON-SITE IN ACTION</span>
+            </div>
+            <h2 class="section-title">SEE THE WORK IN ACTION.</h2>
+            <p class="section-subtitle">
+                Experience real project execution, panel wiring, and illuminated building reveals.
+            </p>
+
+            <div class="video-player-frame 3d-card" data-tilt>
+                <img src="assets/project_img_16.jpg" alt="Video Showcase Poster" class="video-poster-img">
+                <div class="video-play-overlay" id="videoTrigger">
+                    <div class="video-play-btn pulse-glow">
+                        <i data-lucide="play" class="play-icon"></i>
+                    </div>
+                    <span class="play-label">CLICK TO PLAY PROJECT HIGHLIGHTS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 23. QUOTE CALL TO ACTION SECTION                             -->
+    <!-- ============================================================ -->
+    <section class="quote-cta-section section-padding text-center">
+        <div class="cta-bg-image">
+            <img src="assets/project_img_16.jpg" alt="Surya Hospital Background CTA">
+            <div class="cta-dark-overlay"></div>
+        </div>
+
+        <div class="container relative-z">
+            <div class="section-tag">
+                <span class="tag-spark">⚡</span>
+                <span>START YOUR PROJECT</span>
+            </div>
+            <h2 class="cta-headline massive-headline">
+                READY TO POWER YOUR<br>
+                <span class="highlight-gold">NEXT PROJECT?</span>
+            </h2>
+            <p class="cta-desc">
+                Tell us what you need. We'll discuss the right electrical and architectural lighting solution for your home, shop, flat, or commercial building in Pune.
+            </p>
+
+            <div class="cta-btn-group">
+                <a href="#contact" class="btn btn-primary btn-large magnetic-target" data-cursor="QUOTE">
+                    <span>GET A FREE QUOTE</span>
+                    <i data-lucide="arrow-right"></i>
+                </a>
+                <a href="tel:8767814553" class="btn btn-secondary btn-large magnetic-target" data-cursor="CALL">
+                    <i data-lucide="phone"></i>
+                    <span>CALL 8767814553</span>
+                </a>
+                <a href="https://wa.me/918767814553" class="btn btn-whatsapp btn-large magnetic-target" target="_blank" rel="noopener" data-cursor="CHAT">
+                    <i data-lucide="message-circle"></i>
+                    <span>WHATSAPP US</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 24. CONTACT SECTION                                          -->
+    <!-- ============================================================ -->
+    <section id="contact" class="contact-section section-padding dark-bg-alt">
+        <div class="container">
+            <div class="grid grid-2 gap-xl">
+                
+                <!-- Contact Details Column -->
+                <div class="contact-info-col">
+                    <div class="section-tag">
+                        <span class="tag-spark">📍</span>
+                        <span>GET IN TOUCH</span>
+                    </div>
+                    <h2 class="section-title">LET'S CONNECT.</h2>
+                    <p class="contact-lead">
+                        Have an upcoming project, wiring requirement, or lighting query? Reach out directly to Rupesh Baburao Ughade for expert consultation.
+                    </p>
+
+                    <div class="contact-card-box">
+                        <div class="c-info-item">
+                            <i data-lucide="building" class="c-icon"></i>
+                            <div>
+                                <span class="c-label">BUSINESS NAME</span>
+                                <h3 class="c-val">AAISAHEB ELECTRICALS</h3>
+                                <p class="c-sub-mr">आईसाहेब इलेक्ट्रिकल्स</p>
+                            </div>
+                        </div>
+
+                        <div class="c-info-item">
+                            <i data-lucide="user" class="c-icon"></i>
+                            <div>
+                                <span class="c-label">PROPRIETOR</span>
+                                <h4 class="c-val">Rupesh Baburao Ughade</h4>
+                                <p class="c-sub-mr">रुपेश बाबुराव उघडे</p>
+                            </div>
+                        </div>
+
+                        <div class="c-info-item">
+                            <i data-lucide="phone" class="c-icon"></i>
+                            <div>
+                                <span class="c-label">PHONE / WHATSAPP</span>
+                                <h4 class="c-val"><a href="tel:8767814553" class="phone-link">8767814553</a></h4>
+                            </div>
+                        </div>
+
+                        <div class="c-info-item">
+                            <i data-lucide="map-pin" class="c-icon"></i>
+                            <div>
+                                <span class="c-label">LOCATION ADDRESS</span>
+                                <p class="c-val">Gurudwara Chauk, Bijlinagar, near Akurdi Railway Station, Akurdi, Pune, Maharashtra - 411035</p>
+                            </div>
+                        </div>
+
+                        <div class="c-info-item">
+                            <i data-lucide="mail" class="c-icon"></i>
+                            <div>
+                                <span class="c-label">EMAIL ADDRESS</span>
+                                <p class="c-val"><a href="mailto:rughade69@gmail.com">rughade69@gmail.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-quick-actions">
+                        <a href="tel:8767814553" class="btn btn-secondary w-full"><i data-lucide="phone"></i> CALL NOW</a>
+                        <a href="https://wa.me/918767814553" class="btn btn-whatsapp w-full" target="_blank" rel="noopener"><i data-lucide="message-circle"></i> WHATSAPP</a>
+                        <a href="https://maps.google.com/?q=Gurudwara+Chauk+Akurdi+Pune" class="btn btn-primary w-full" target="_blank" rel="noopener"><i data-lucide="navigation"></i> GET DIRECTIONS</a>
+                    </div>
+                </div>
+
+                <!-- Contact Form Column -->
+                <div class="contact-form-col">
+                    <div class="form-card glassmorphism 3d-card" data-tilt>
+                        <h3 class="form-title">SEND AN ENQUIRY</h3>
+                        <p class="form-sub">Fill out the form below and we will contact you shortly.</p>
+
+                        <form id="enquiryForm" class="enquiry-form">
+                            <div class="form-group">
+                                <label for="formName" class="form-label">YOUR NAME *</label>
+                                <input type="text" id="formName" name="name" class="form-input" placeholder="e.g. Rahul Sharma" required>
+                            </div>
+
+                            <div class="grid grid-2 gap-md">
+                                <div class="form-group">
+                                    <label for="formPhone" class="form-label">PHONE NUMBER *</label>
+                                    <input type="tel" id="formPhone" name="phone" class="form-input" placeholder="e.g. 9876543210" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="formEmail" class="form-label">EMAIL ADDRESS</label>
+                                    <input type="email" id="formEmail" name="email" class="form-input" placeholder="e.g. name@example.com">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-2 gap-md">
+                                <div class="form-group">
+                                    <label for="formProjectType" class="form-label">PROJECT TYPE *</label>
+                                    <select id="formProjectType" name="projectType" class="form-input" required>
+                                        <option value="" disabled selected>Select Requirement</option>
+                                        <option value="New Electrical Installation">New Electrical Installation</option>
+                                        <option value="House Wiring">House Wiring (1/2/3 BHK)</option>
+                                        <option value="Flat / Office Work">Flat / Office Electrical Work</option>
+                                        <option value="Lighting Installation">Lighting Installation (LED/Chandelier)</option>
+                                        <option value="Electrical Repair">Electrical Repair / Maintenance</option>
+                                        <option value="Commercial Panel">Commercial Distribution Panel</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="formLocation" class="form-label">LOCATION IN PUNE *</label>
+                                    <input type="text" id="formLocation" name="location" class="form-input" placeholder="e.g. Akurdi, Wakad, Baner" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="formRequirement" class="form-label">YOUR REQUIREMENT DETAILS *</label>
+                                <textarea id="formRequirement" name="requirement" rows="4" class="form-input" placeholder="Describe your project requirement or site details..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-full btn-magnetic magnetic-target" data-cursor="SEND">
+                                <span>SEND ENQUIRY</span>
+                                <i data-lucide="send"></i>
+                            </button>
+
+                            <div class="form-success-msg" id="formSuccessMsg">
+                                <i data-lucide="check-circle" class="success-icon"></i>
+                                <p>Thank you! Your enquiry has been sent. We will call you shortly.</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 25. FIXED FLOATING WHATSAPP BUTTON                           -->
+    <!-- ============================================================ -->
+    <a href="https://wa.me/918767814553" class="floating-whatsapp-btn magnetic-target" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" data-cursor="CHAT">
+        <i data-lucide="message-circle" class="wa-icon"></i>
+        <span class="wa-hover-text">CHAT WITH US</span>
+    </a>
+
+    <!-- ============================================================ -->
+    <!-- 26. STICKY MOBILE CALL / WHATSAPP / QUOTE BAR                -->
+    <!-- ============================================================ -->
+    <div class="mobile-sticky-bar">
+        <a href="tel:8767814553" class="mob-bar-btn call-btn">
+            <i data-lucide="phone"></i>
+            <span>CALL NOW</span>
+        </a>
+        <a href="https://wa.me/918767814553" class="mob-bar-btn wa-btn" target="_blank" rel="noopener">
+            <i data-lucide="message-circle"></i>
+            <span>WHATSAPP</span>
+        </a>
+        <a href="#contact" class="mob-bar-btn quote-btn">
+            <i data-lucide="clipboard-list"></i>
+            <span>GET QUOTE</span>
+        </a>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 27. FOOTER                                                   -->
+    <!-- ============================================================ -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-top grid grid-4 gap-lg">
+                
+                <div class="footer-col brand-col">
+                    <div class="brand-text">
+                        <span class="brand-main">AAISAHEB</span>
+                        <span class="brand-sub">ELECTRICALS</span>
+                    </div>
+                    <p class="footer-mr-name">आईसाहेब इलेक्ट्रिकल्स</p>
+                    <p class="footer-desc">
+                        Professional Electrical & Lighting Solutions for residential, commercial and architectural spaces in Pune.
+                    </p>
+                    <p class="footer-tagline">"सुरक्षित सेवा... विश्वासाची हमी!"</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-heading">QUICK LINKS</h4>
+                    <ul class="footer-links">
+                        <li><a href="#hero">HOME</a></li>
+                        <li><a href="#about">ABOUT US</a></li>
+                        <li><a href="#services">SERVICES</a></li>
+                        <li><a href="#projects">PROJECTS</a></li>
+                        <li><a href="#gallery">GALLERY</a></li>
+                        <li><a href="#contact">CONTACT</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-heading">OUR SERVICES</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">New Electrical Work</a></li>
+                        <li><a href="#services">Electrical Repair Work</a></li>
+                        <li><a href="#services">House Wiring (1/2/3 BHK)</a></li>
+                        <li><a href="#services">Flat & Office Electrical Work</a></li>
+                        <li><a href="#services">Commercial Electrical Work</a></li>
+                        <li><a href="#services">Architectural Lighting Installation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 class="footer-heading">CONTACT INFO</h4>
+                    <p class="footer-owner"><strong>Rupesh Baburao Ughade</strong></p>
+                    <p class="footer-contact">Phone: <a href="tel:8767814553">8767814553</a></p>
+                    <p class="footer-contact">Email: <a href="mailto:rughade69@gmail.com">rughade69@gmail.com</a></p>
+                    <p class="footer-address">
+                        Gurudwara Chauk, Bijlinagar, near Akurdi Railway Station, Akurdi, Pune - 411035
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom flex-between">
+                <p>© 2026 Aaisaheb Electricals. All Rights Reserved.</p>
+                <p>Pune, Maharashtra, India</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP for Smooth Scroll & Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Main JavaScript Bundle -->
+    <script src="app.js"></script>
+</body>
+</html>
