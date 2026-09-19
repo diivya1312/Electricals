@@ -50,6 +50,8 @@
 
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- PDF.js (bundled locally so the official documents render after deployment) -->
+    <script src="assets/vendor/pdf.min.js"></script>
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="styles.css">
@@ -123,10 +125,24 @@
                 <li><a href="#hero" class="nav-link active"><span class="nav-dot"></span>HOME</a></li>
                 <li><a href="#about" class="nav-link"><span class="nav-dot"></span>ABOUT</a></li>
                 <li><a href="#services" class="nav-link"><span class="nav-dot"></span>SERVICES</a></li>
-                <li><a href="#engineering" class="nav-link"><span class="nav-dot"></span>ENGINEERING</a></li>
                 <li><a href="#projects" class="nav-link"><span class="nav-dot"></span>PROJECTS</a></li>
                 <li><a href="#gallery" class="nav-link"><span class="nav-dot"></span>GALLERY</a></li>
                 <li><a href="#process" class="nav-link"><span class="nav-dot"></span>PROCESS</a></li>
+                <li class="nav-item-doc"><a href="#gst-viewer" class="nav-link doc-trigger" data-doc="gst"><span class="nav-dot"></span>GST</a></li>
+                <li class="nav-item-doc"><a href="#wireman-viewer" class="nav-link doc-trigger" data-doc="wireman"><span class="nav-dot"></span>WIREMAN LICENSE</a></li>
+
+                <!-- Condensed "MORE" dropdown for narrower desktop widths -->
+                <li class="nav-more" id="navMore">
+                    <button class="nav-link nav-more-toggle" id="navMoreToggle" aria-expanded="false" aria-haspopup="true">
+                        <span class="nav-dot"></span>MORE
+                        <i data-lucide="chevron-down" class="nav-more-caret"></i>
+                    </button>
+                    <ul class="nav-more-dropdown">
+                        <li><a href="#gst-viewer" class="nav-more-link doc-trigger" data-doc="gst"><i data-lucide="file-badge"></i>GST REGISTRATION</a></li>
+                        <li><a href="#wireman-viewer" class="nav-more-link doc-trigger" data-doc="wireman"><i data-lucide="badge-check"></i>WIREMAN LICENSE</a></li>
+                    </ul>
+                </li>
+
                 <li><a href="#contact" class="nav-link"><span class="nav-dot"></span>CONTACT</a></li>
             </ul>
 
@@ -164,11 +180,12 @@
                 <li class="mob-item"><a href="#hero" class="mob-link">01. HOME</a></li>
                 <li class="mob-item"><a href="#about" class="mob-link">02. ABOUT</a></li>
                 <li class="mob-item"><a href="#services" class="mob-link">03. SERVICES</a></li>
-                <li class="mob-item"><a href="#engineering" class="mob-link">04. ENGINEERING</a></li>
-                <li class="mob-item"><a href="#projects" class="mob-link">05. PROJECTS</a></li>
-                <li class="mob-item"><a href="#gallery" class="mob-link">06. GALLERY</a></li>
-                <li class="mob-item"><a href="#process" class="mob-link">07. PROCESS</a></li>
-                <li class="mob-item"><a href="#contact" class="mob-link">08. CONTACT</a></li>
+                <li class="mob-item"><a href="#projects" class="mob-link">04. PROJECTS</a></li>
+                <li class="mob-item"><a href="#gallery" class="mob-link">05. GALLERY</a></li>
+                <li class="mob-item"><a href="#process" class="mob-link">06. PROCESS</a></li>
+                <li class="mob-item"><a href="#gst-viewer" class="mob-link doc-trigger" data-doc="gst">07. GST REGISTRATION</a></li>
+                <li class="mob-item"><a href="#wireman-viewer" class="mob-link doc-trigger" data-doc="wireman">08. WIREMAN LICENSE</a></li>
+                <li class="mob-item"><a href="#contact" class="mob-link">09. CONTACT</a></li>
             </ul>
             <div class="mobile-contact-info">
                 <p class="mob-promise">"सुरक्षित सेवा... विश्वासाची हमी!"</p>
@@ -181,13 +198,121 @@
     </div>
 
     <!-- ============================================================ -->
+    <!-- DEDICATED DOCUMENT VIEWER OVERLAY (GST & WIREMAN LICENSE)    -->
+    <!-- ============================================================ -->
+    <div class="doc-viewer-modal" id="docViewerModal">
+        <div class="doc-viewer-overlay" id="docViewerOverlay"></div>
+        <div class="doc-viewer-container container">
+
+            <!-- Viewer Header Bar -->
+            <div class="doc-viewer-header flex-between">
+                <button class="doc-back-btn btn btn-secondary magnetic-target" id="docBackBtn" data-cursor="BACK">
+                    <i data-lucide="arrow-left"></i>
+                    <span>← BACK TO WEBSITE</span>
+                </button>
+
+                <div class="doc-title-box text-center">
+                    <span class="doc-brand-sub">AAISAHEB ELECTRICALS</span>
+                    <h2 class="doc-heading" id="docHeading">WIREMAN LICENSE</h2>
+                </div>
+
+                <div class="doc-toolbar">
+                    <!-- Page Navigation Controls -->
+                    <div class="doc-page-controls" id="docPageControls" hidden>
+                        <button class="doc-tool-btn" id="docPrevPageBtn" title="Previous Page"><i data-lucide="chevron-left"></i></button>
+                        <span class="doc-page-indicator" id="docPageIndicator">Page 1 of 1</span>
+                        <button class="doc-tool-btn" id="docNextPageBtn" title="Next Page"><i data-lucide="chevron-right"></i></button>
+                    </div>
+
+                    <!-- Zoom Controls -->
+                    <button class="doc-tool-btn" id="docZoomOutBtn" title="Zoom Out"><i data-lucide="zoom-out"></i></button>
+                    <span class="doc-zoom-val" id="docZoomLevel">100%</span>
+                    <button class="doc-tool-btn" id="docZoomInBtn" title="Zoom In"><i data-lucide="zoom-in"></i></button>
+                    <button class="doc-tool-btn" id="docFitBtn" title="Fit To Screen"><i data-lucide="scan"></i></button>
+                    <button class="doc-tool-btn" id="docFullscreenBtn" title="Toggle Fullscreen"><i data-lucide="maximize"></i></button>
+
+                    <!-- Open PDF & Download PDF Buttons -->
+                    <a href="" target="_blank" rel="noopener" id="docOpenTabBtn" class="doc-tool-btn btn-open-tab" title="Open PDF in new tab">
+                        <i data-lucide="external-link"></i>
+                        <span class="dl-text">OPEN PDF</span>
+                    </a>
+                    <a href="" download id="docDownloadBtn" class="doc-tool-btn btn-download-pdf" title="Download Official PDF">
+                        <i data-lucide="download"></i>
+                        <span class="dl-text">DOWNLOAD PDF</span>
+                    </a>
+
+                    <button class="doc-tool-btn doc-close-x" id="docCloseBtn" title="Close Viewer"><i data-lucide="x"></i></button>
+                </div>
+            </div>
+
+            <!-- Viewer Document Content Body -->
+            <div class="doc-viewer-body" id="docViewerBody">
+                <div class="doc-canvas-wrapper" id="docCanvasWrapper">
+
+                    <!-- Primary: the actual uploaded PDF, rendered page by page -->
+                    <div class="doc-pdf-pages" id="docPdfPages"></div>
+
+                    <!-- Secondary: browser-native PDF embed -->
+                    <object data="" type="application/pdf" id="docObject" class="doc-object">
+                        <iframe src="" id="docIframe" class="doc-iframe" title="Official Document PDF"></iframe>
+                    </object>
+                </div>
+
+                <!-- Loading State -->
+                <div class="doc-state doc-loading" id="docLoading" hidden>
+                    <div class="doc-spinner"></div>
+                    <p class="doc-state-text">LOADING OFFICIAL DOCUMENT…</p>
+                </div>
+
+                <!-- Error Fallback Card (shown if the browser cannot render the PDF) -->
+                <div class="doc-error-fallback" id="docErrorFallback" hidden>
+                    <div class="fallback-card">
+                        <div class="fallback-icon-wrap">
+                            <i data-lucide="file-text" class="fallback-icon"></i>
+                        </div>
+                        <h3 id="fallbackTitle">WIREMAN LICENSE</h3>
+                        <p id="fallbackSub">View the official document</p>
+                        <div class="fallback-btn-group">
+                            <a href="" target="_blank" rel="noopener" class="btn btn-primary" id="fallbackOpenBtn">
+                                <i data-lucide="external-link"></i> OPEN PDF
+                            </a>
+                            <a href="" download class="btn btn-secondary" id="fallbackDownloadBtn">
+                                <i data-lucide="download"></i> DOWNLOAD PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
     <!-- 7 & 8. HERO SECTION WITH CIRCUIT BACKGROUND EFFECT           -->
     <!-- ============================================================ -->
     <section id="hero" class="hero-section">
-        <!-- Real Night Building Photo Hero Background -->
-        <div class="hero-bg-wrapper">
+        <!-- Real Night Building Photo Hero Background (poster / fallback layer) -->
+        <div class="hero-bg-wrapper" id="heroBgWrapper">
             <img src="assets/project_img_16.jpg" alt="Surya Hospital Night Architectural Lighting Pune" class="hero-bg-img" id="heroBgImg">
+
+            <!-- Cinematic Looping Project Video Background -->
+            <video
+                id="heroBgVideo"
+                class="hero-bg-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                webkit-playsinline
+                preload="metadata"
+                poster="assets/project_img_16.jpg"
+                disablepictureinpicture
+                aria-hidden="true"
+                tabindex="-1">
+                <source src="assets/video.mp4" type="video/mp4">
+            </video>
+
             <div class="hero-dark-overlay"></div>
+            <div class="hero-warm-glow"></div>
             <div class="hero-vignette"></div>
             <div class="hero-glow-orb"></div>
         </div>
@@ -1419,6 +1544,8 @@
                         <li><a href="#services">SERVICES</a></li>
                         <li><a href="#projects">PROJECTS</a></li>
                         <li><a href="#gallery">GALLERY</a></li>
+                        <li><a href="#gst-viewer" class="doc-trigger" data-doc="gst">GST REGISTRATION</a></li>
+                        <li><a href="#wireman-viewer" class="doc-trigger" data-doc="wireman">WIREMAN LICENSE</a></li>
                         <li><a href="#contact">CONTACT</a></li>
                     </ul>
                 </div>

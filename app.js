@@ -171,7 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileNav);
-        mobLinks.forEach(link => link.addEventListener('click', closeMobileNav));
+        mobLinks.forEach(link => {
+            if (!link.classList.contains('doc-trigger')) {
+                link.addEventListener('click', closeMobileNav);
+            }
+        });
     }
 
     // Active Section Link Highlight via IntersectionObserver
@@ -189,9 +193,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 const id = entry.target.getAttribute('id');
                 navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
+                    if (!link.classList.contains('doc-trigger')) {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
                     }
                 });
             }
@@ -199,6 +205,544 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
 
     sections.forEach(sec => sectionObserver.observe(sec));
+
+    /* ============================================================ */
+    /* DEDICATED DOCUMENT VIEWER (GST & WIREMAN LICENSE)            */
+    /* ============================================================ */
+    const docTriggers = document.querySelectorAll('.doc-trigger');
+    const docViewerModal = document.getElementById('docViewerModal');
+    const docViewerOverlay = document.getElementById('docViewerOverlay');
+    const docViewerBody = document.getElementById('docViewerBody');
+    const docHeading = document.getElementById('docHeading');
+    const docCanvasWrapper = document.getElementById('docCanvasWrapper');
+    const docPdfPages = document.getElementById('docPdfPages');
+    const docObject = document.getElementById('docObject');
+    const docIframe = document.getElementById('docIframe');
+
+    const docBackBtn = document.getElementById('docBackBtn');
+    const docCloseBtn = document.getElementById('docCloseBtn');
+    const docDownloadBtn = document.getElementById('docDownloadBtn');
+    const docOpenTabBtn = document.getElementById('docOpenTabBtn');
+
+    const docZoomInBtn = document.getElementById('docZoomInBtn');
+    const docZoomOutBtn = document.getElementById('docZoomOutBtn');
+    const docFitBtn = document.getElementById('docFitBtn');
+    const docZoomLevel = document.getElementById('docZoomLevel');
+    const docFullscreenBtn = document.getElementById('docFullscreenBtn');
+
+    const docPageControls = document.getElementById('docPageControls');
+    const docPrevPageBtn = document.getElementById('docPrevPageBtn');
+    const docNextPageBtn = document.getElementById('docNextPageBtn');
+    const docPageIndicator = document.getElementById('docPageIndicator');
+
+    const docLoading = document.getElementById('docLoading');
+    const docErrorFallback = document.getElementById('docErrorFallback');
+    const fallbackTitle = document.getElementById('fallbackTitle');
+    const fallbackSub = document.getElementById('fallbackSub');
+    const fallbackOpenBtn = document.getElementById('fallbackOpenBtn');
+    const fallbackDownloadBtn = document.getElementById('fallbackDownloadBtn');
+
+    /* The actual uploaded documents in /assets. Paths are resolved against the
+       page base URL so they also work on the clean /gst and /wireman-license
+       routes and after the site is deployed to any sub-path. */
+    const docData = {
+        gst: {
+            title: 'GST REGISTRATION CERTIFICATE',
+            file: 'assets/gst_registration_certificate.pdf',
+            downloadName: 'Aaisaheb-Electricals-GST-Registration.pdf'
+        },
+        wireman: {
+            title: 'WIREMAN LICENSE',
+            file: 'assets/wireman_license.pdf',
+            downloadName: 'Aaisaheb-Electricals-Wireman-License.pdf'
+        }
+    };
+
+    const docRoutes = { gst: '#gst', wireman: '#wireman-license' };
+
+    function docAssetUrl(file) {
+        return new URL(file, document.baseURI).href;
+    }
+
+    let activeDocType = null;
+    let pdfDoc = null;
+    let pdfZoom = 1;          // user zoom multiplier applied on top of the fit scale
+    let pdfFitScale = 1;      // scale that fits a page to the viewer width
+    let pdfCurrentPage = 1;
+    let pdfRenderToken = 0;
+    let usingNativeEmbed = false;
+
+    if (window.pdfjsLib && pdfjsLib.GlobalWorkerOptions) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = docAssetUrl('assets/vendor/pdf.worker.min.js');
+    }
+
+    function setDocState(state) {
+        if (docLoading) docLoading.hidden = state !== 'loading';
+        if (docErrorFallback) docErrorFallback.hidden = state !== 'error';
+        if (docCanvasWrapper) {
+            docCanvasWrapper.style.visibility = state === 'ready' ? 'visible' : 'hidden';
+        }
+    }
+
+    // Last-resort panel. The document stays reachable via Open / Download.
+    function showDocError(item, reason) {
+        console.error(
+            '[Aaisaheb Electricals] Document preview failed for "' + item.title + '"\n' +
+            'Asset path: ' + docAssetUrl(item.file) + '\n' +
+            'Reason: ' + reason
+        );
+        if (fallbackTitle) fallbackTitle.textContent = item.title;
+        if (fallbackSub) fallbackSub.textContent = 'Unable to preview the document.';
+        if (docPageControls) docPageControls.hidden = true;
+        setDocState('error');
+    }
+
+    // Browser-native PDF engine, used when PDF.js is unavailable.
+    function showNativeEmbed(item) {
+        usingNativeEmbed = true;
+        const url = docAssetUrl(item.file);
+        if (docObject) {
+            docObject.setAttribute('data', url);
+            docObject.style.display = 'block';
+        }
+        if (docIframe) docIframe.setAttribute('src', url);
+        if (docPdfPages) docPdfPages.style.display = 'none';
+        if (docPageControls) docPageControls.hidden = true;
+        setDocState('ready');
+
+        // Mobile browsers often render nothing here; show the action card instead.
+        setTimeout(function () {
+            const painted = docObject && docObject.offsetHeight > 40;
+            if (!painted) showDocError(item, 'Native PDF embed produced no visible output.');
+        }, 1800);
+    }
+
+    function updateZoomLabel() {
+        if (docZoomLevel) docZoomLevel.textContent = Math.round(pdfZoom * 100) + '%';
+    }
+
+    function updatePageIndicator() {
+        if (!pdfDoc) return;
+        if (docPageIndicator) {
+            docPageIndicator.textContent = 'Page ' + pdfCurrentPage + ' of ' + pdfDoc.numPages;
+        }
+        if (docPrevPageBtn) docPrevPageBtn.disabled = pdfCurrentPage <= 1;
+        if (docNextPageBtn) docNextPageBtn.disabled = pdfCurrentPage >= pdfDoc.numPages;
+    }
+
+    // Width available for a rendered page, minus the viewer padding.
+    function availableWidth() {
+        if (!docViewerBody) return 800;
+        const styles = window.getComputedStyle(docViewerBody);
+        const pad = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
+        return Math.max(240, docViewerBody.clientWidth - pad - 8);
+    }
+
+    /* Renders every page of the PDF stacked vertically, so the complete
+       document is always present, scrollable and never cropped. */
+    async function renderPdfPages() {
+        if (!pdfDoc || !docPdfPages) return;
+
+        const token = ++pdfRenderToken;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const frag = document.createDocumentFragment();
+
+        const firstPage = await pdfDoc.getPage(1);
+        const base = firstPage.getViewport({ scale: 1 });
+        pdfFitScale = availableWidth() / base.width;
+
+        for (let num = 1; num <= pdfDoc.numPages; num++) {
+            if (token !== pdfRenderToken) return;
+
+            const page = await pdfDoc.getPage(num);
+            const viewport = page.getViewport({ scale: pdfFitScale * pdfZoom });
+
+            const holder = document.createElement('div');
+            holder.className = 'doc-page-wrapper';
+            holder.dataset.page = String(num);
+
+            if (pdfDoc.numPages > 1) {
+                const badge = document.createElement('span');
+                badge.className = 'page-badge';
+                badge.textContent = 'PAGE ' + num;
+                holder.appendChild(badge);
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.className = 'doc-pdf-canvas';
+            canvas.width = Math.floor(viewport.width * dpr);
+            canvas.height = Math.floor(viewport.height * dpr);
+            canvas.style.width = Math.floor(viewport.width) + 'px';
+            canvas.style.height = Math.floor(viewport.height) + 'px';
+            holder.appendChild(canvas);
+            frag.appendChild(holder);
+
+            await page.render({
+                canvasContext: canvas.getContext('2d'),
+                viewport: viewport,
+                transform: dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : null
+            }).promise;
+        }
+
+        if (token !== pdfRenderToken) return;
+        docPdfPages.innerHTML = '';
+        docPdfPages.appendChild(frag);
+        updateZoomLabel();
+        updatePageIndicator();
+    }
+
+    function loadPdfDocument(item) {
+        const url = docAssetUrl(item.file);
+        setDocState('loading');
+
+        if (!window.pdfjsLib) {
+            console.warn('[Aaisaheb Electricals] PDF.js unavailable - using native PDF embed for ' + url);
+            showNativeEmbed(item);
+            return;
+        }
+
+        usingNativeEmbed = false;
+        if (docObject) docObject.style.display = 'none';
+        if (docPdfPages) docPdfPages.style.display = 'flex';
+
+        // Never leave the viewer spinning: hand over to the native engine
+        // if PDF.js has not produced pages in time.
+        let settled = false;
+        const watchdog = setTimeout(function () {
+            if (settled) return;
+            settled = true;
+            console.warn('[Aaisaheb Electricals] PDF.js timed out for ' + url + ' - using native embed.');
+            showNativeEmbed(item);
+        }, 8000);
+
+        pdfjsLib.getDocument({ url: url }).promise.then(function (doc) {
+            if (settled) return null;
+            pdfDoc = doc;
+            pdfZoom = 1;
+            pdfCurrentPage = 1;
+            if (docPageControls) docPageControls.hidden = doc.numPages < 2;
+            return renderPdfPages();
+        }).then(function () {
+            if (settled) return;
+            settled = true;
+            clearTimeout(watchdog);
+            setDocState('ready');
+            if (docViewerBody) docViewerBody.scrollTop = 0;
+        }).catch(function (err) {
+            if (settled) return;
+            settled = true;
+            clearTimeout(watchdog);
+            console.error('[Aaisaheb Electricals] PDF.js could not load: ' + url, err);
+            // PDF.js failed - try the browser's own PDF engine before giving up.
+            showNativeEmbed(item);
+        });
+    }
+
+    function openDocViewer(type, skipHistory) {
+        const item = docData[type] || docData.gst;
+        activeDocType = docData[type] ? type : 'gst';
+
+        if (docHeading) docHeading.textContent = item.title;
+
+        const url = docAssetUrl(item.file);
+        [docDownloadBtn, fallbackDownloadBtn].forEach(function (btn) {
+            if (!btn) return;
+            btn.href = url;
+            btn.setAttribute('download', item.downloadName);
+        });
+        [docOpenTabBtn, fallbackOpenBtn].forEach(function (btn) {
+            if (btn) btn.href = url;
+        });
+
+        if (docViewerModal) docViewerModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        navLinks.forEach(function (l) { l.classList.remove('active'); });
+        document.querySelectorAll('.doc-trigger[data-doc="' + activeDocType + '"]')
+            .forEach(function (l) { l.classList.add('active'); });
+
+        if (mobileNav) mobileNav.classList.remove('active');
+
+        loadPdfDocument(item);
+
+        if (skipHistory !== true) {
+            try {
+                history.pushState({ docViewer: activeDocType }, '', docRoutes[activeDocType]);
+            } catch (err) {
+                /* History unavailable (file://) - the viewer still works. */
+            }
+        }
+    }
+
+    function closeDocViewer(skipHistory) {
+        if (docViewerModal) docViewerModal.classList.remove('active');
+        document.body.style.overflow = '';
+
+        // Release the document so reopening always re-reads the real asset.
+        pdfRenderToken++;
+        pdfDoc = null;
+        if (docPdfPages) docPdfPages.innerHTML = '';
+        if (docObject) docObject.setAttribute('data', '');
+        if (docIframe) docIframe.setAttribute('src', '');
+
+        document.querySelectorAll('.doc-trigger').forEach(function (l) {
+            l.classList.remove('active');
+        });
+
+        if (skipHistory !== true && history.state && history.state.docViewer) {
+            try {
+                history.back();
+            } catch (err) {
+                /* Already closed. */
+            }
+        }
+    }
+
+    docTriggers.forEach(function (trig) {
+        trig.addEventListener('click', function (e) {
+            e.preventDefault();
+            openDocViewer(trig.getAttribute('data-doc'));
+        });
+    });
+
+    // Condensed navbar "MORE" dropdown (narrow desktop widths)
+    const navMore = document.getElementById('navMore');
+    const navMoreToggle = document.getElementById('navMoreToggle');
+
+    if (navMore && navMoreToggle) {
+        const closeNavMore = function () {
+            navMore.classList.remove('open');
+            navMoreToggle.setAttribute('aria-expanded', 'false');
+        };
+
+        navMoreToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const isOpen = navMore.classList.toggle('open');
+            navMoreToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!navMore.contains(e.target)) closeNavMore();
+        });
+
+        window.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeNavMore();
+        });
+
+        navMore.querySelectorAll('.nav-more-link').forEach(function (link) {
+            link.addEventListener('click', closeNavMore);
+        });
+    }
+
+    if (docBackBtn) docBackBtn.addEventListener('click', function () { closeDocViewer(); });
+    if (docCloseBtn) docCloseBtn.addEventListener('click', function () { closeDocViewer(); });
+    if (docViewerOverlay) docViewerOverlay.addEventListener('click', function () { closeDocViewer(); });
+
+    /* ---------------- Zoom ---------------- */
+    function applyZoom(next) {
+        pdfZoom = Math.min(3, Math.max(0.5, parseFloat(next.toFixed(2))));
+        updateZoomLabel();
+        if (pdfDoc && !usingNativeEmbed) {
+            renderPdfPages();
+        } else if (docCanvasWrapper) {
+            docCanvasWrapper.style.transform = 'scale(' + pdfZoom + ')';
+        }
+    }
+
+    if (docZoomInBtn) docZoomInBtn.addEventListener('click', function () { applyZoom(pdfZoom + 0.25); });
+    if (docZoomOutBtn) docZoomOutBtn.addEventListener('click', function () { applyZoom(pdfZoom - 0.25); });
+
+    function fitToScreen() {
+        pdfZoom = 1;
+        updateZoomLabel();
+        if (pdfDoc && !usingNativeEmbed) {
+            renderPdfPages();
+        } else if (docCanvasWrapper) {
+            docCanvasWrapper.style.transform = 'scale(1)';
+        }
+        if (docViewerBody) docViewerBody.scrollTop = 0;
+    }
+
+    if (docFitBtn) docFitBtn.addEventListener('click', fitToScreen);
+
+    /* ---------------- Page navigation ---------------- */
+    function goToPage(num) {
+        if (!pdfDoc || !docPdfPages) return;
+        pdfCurrentPage = Math.min(Math.max(1, num), pdfDoc.numPages);
+        const target = docPdfPages.querySelector('[data-page="' + pdfCurrentPage + '"]');
+        if (target && docViewerBody) {
+            docViewerBody.scrollTo({
+                top: target.offsetTop - docViewerBody.offsetTop,
+                behavior: 'smooth'
+            });
+        }
+        updatePageIndicator();
+    }
+
+    if (docPrevPageBtn) docPrevPageBtn.addEventListener('click', function () { goToPage(pdfCurrentPage - 1); });
+    if (docNextPageBtn) docNextPageBtn.addEventListener('click', function () { goToPage(pdfCurrentPage + 1); });
+
+    // Keep the page indicator in step with manual scrolling.
+    if (docViewerBody) {
+        let scrollTick = false;
+        docViewerBody.addEventListener('scroll', function () {
+            if (!pdfDoc || scrollTick) return;
+            scrollTick = true;
+            requestAnimationFrame(function () {
+                scrollTick = false;
+                if (!docPdfPages) return;
+                const pages = docPdfPages.querySelectorAll('[data-page]');
+                const mid = docViewerBody.scrollTop + docViewerBody.clientHeight / 2;
+                pages.forEach(function (p) {
+                    if (p.offsetTop <= mid && p.offsetTop + p.offsetHeight > mid) {
+                        const n = parseInt(p.dataset.page, 10);
+                        if (n !== pdfCurrentPage) {
+                            pdfCurrentPage = n;
+                            updatePageIndicator();
+                        }
+                    }
+                });
+            });
+        }, { passive: true });
+    }
+
+    // Re-fit the rendered pages when the viewport changes.
+    let docResizeTimer = null;
+    window.addEventListener('resize', function () {
+        if (!pdfDoc || usingNativeEmbed) return;
+        if (!docViewerModal || !docViewerModal.classList.contains('active')) return;
+        clearTimeout(docResizeTimer);
+        docResizeTimer = setTimeout(renderPdfPages, 250);
+    });
+
+    /* ---------------- Fullscreen ---------------- */
+    if (docFullscreenBtn && docViewerModal) {
+        docFullscreenBtn.addEventListener('click', function () {
+            if (!document.fullscreenElement) {
+                const req = docViewerModal.requestFullscreen || docViewerModal.webkitRequestFullscreen;
+                if (req) {
+                    Promise.resolve(req.call(docViewerModal)).catch(function (err) {
+                        console.warn('[Aaisaheb Electricals] Fullscreen unavailable', err);
+                    });
+                }
+            } else {
+                document.exitFullscreen().catch(function (err) {
+                    console.warn('[Aaisaheb Electricals] Exit fullscreen failed', err);
+                });
+            }
+        });
+        document.addEventListener('fullscreenchange', function () {
+            if (pdfDoc && !usingNativeEmbed) setTimeout(renderPdfPages, 120);
+        });
+    }
+
+    /* ---------------- Routing ---------------- */
+    window.addEventListener('popstate', function (e) {
+        if (e.state && e.state.docViewer) {
+            openDocViewer(e.state.docViewer, true);
+        } else if (docViewerModal && docViewerModal.classList.contains('active')) {
+            closeDocViewer(true);
+        }
+    });
+
+    // Deep links: /gst and /wireman-license (and their #hash equivalents).
+    const initialRoute = (
+        window.location.pathname.replace(/\/+$/, '') + (window.location.hash || '')
+    ).toLowerCase();
+
+    let initialDoc = null;
+    if (/(^|\/|#)gst(-viewer)?$/.test(initialRoute)) initialDoc = 'gst';
+    else if (/(^|\/|#)wireman(-license|-viewer)?$/.test(initialRoute)) initialDoc = 'wireman';
+
+    if (initialDoc) {
+        window.addEventListener('load', function () {
+            setTimeout(function () { openDocViewer(initialDoc, true); }, 600);
+        });
+    }
+
+    /* ============================================================ */
+    /* HERO CINEMATIC LOOPING BACKGROUND VIDEO                      */
+    /* ============================================================ */
+    const heroBgVideo = document.getElementById('heroBgVideo');
+    const heroBgWrapper = document.getElementById('heroBgWrapper');
+
+    if (heroBgVideo && heroBgWrapper) {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const netInfo = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const lightMode = !!(netInfo && (netInfo.saveData || /(^|-)2g$/.test(netInfo.effectiveType || '')));
+
+        if (reduceMotion || lightMode) {
+            // Low-power / data-saver devices keep the lightweight poster image only.
+            heroBgVideo.removeAttribute('autoplay');
+            heroBgVideo.preload = 'none';
+            heroBgVideo.remove();
+        } else {
+            // Autoplay only succeeds while muted + inline on modern browsers.
+            heroBgVideo.muted = true;
+            heroBgVideo.defaultMuted = true;
+            heroBgVideo.playsInline = true;
+            heroBgVideo.loop = true;
+            heroBgVideo.preload = 'auto';
+
+            let heroInView = true;
+
+            const heroSectionEl = document.getElementById('hero');
+            const revealHeroVideo = () => {
+                heroBgWrapper.classList.add('video-active');
+                if (heroSectionEl) heroSectionEl.classList.add('video-active-hero');
+            };
+
+            const playHeroVideo = () => {
+                const attempt = heroBgVideo.play();
+                if (attempt && typeof attempt.then === 'function') {
+                    attempt.then(revealHeroVideo).catch(() => {
+                        /* Autoplay blocked - the poster image stays visible. */
+                    });
+                } else {
+                    revealHeroVideo();
+                }
+            };
+
+            heroBgVideo.addEventListener('loadeddata', playHeroVideo);
+            heroBgVideo.addEventListener('playing', revealHeroVideo);
+            if (heroBgVideo.readyState >= 2) playHeroVideo();
+
+            // Safety net: some browsers stall the native loop, so restart manually.
+            heroBgVideo.addEventListener('ended', () => {
+                heroBgVideo.currentTime = 0;
+                playHeroVideo();
+            });
+
+            // Retry on the first interaction for browsers that block silent autoplay.
+            ['pointerdown', 'touchstart', 'keydown'].forEach(evt => {
+                document.addEventListener(evt, () => {
+                    if (heroBgVideo.paused && heroInView) playHeroVideo();
+                }, { once: true, passive: true });
+            });
+
+            // Performance: only decode frames while the hero is actually on screen.
+            if (heroSectionEl && 'IntersectionObserver' in window) {
+                new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        heroInView = entry.isIntersecting;
+                        if (heroInView) {
+                            if (heroBgVideo.paused && !document.hidden) playHeroVideo();
+                        } else if (!heroBgVideo.paused) {
+                            heroBgVideo.pause();
+                        }
+                    });
+                }, { threshold: 0.05 }).observe(heroSectionEl);
+            }
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    heroBgVideo.pause();
+                } else if (heroInView) {
+                    playHeroVideo();
+                }
+            });
+        }
+    }
 
     /* ============================================================ */
     /* 8. HERO CANVAS CIRCUIT BACKGROUND                            */
@@ -477,12 +1021,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Keyboard Lightbox Navigation
+    // Keyboard Lightbox & Document Navigation
     window.addEventListener('keydown', (e) => {
-        if (!lightboxModal || !lightboxModal.classList.contains('active')) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft' && lightboxPrev) lightboxPrev.click();
-        if (e.key === 'ArrowRight' && lightboxNext) lightboxNext.click();
+        if (lightboxModal && lightboxModal.classList.contains('active')) {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft' && lightboxPrev) lightboxPrev.click();
+            if (e.key === 'ArrowRight' && lightboxNext) lightboxNext.click();
+        }
+        if (docViewerModal && docViewerModal.classList.contains('active')) {
+            if (e.key === 'Escape') closeDocViewer();
+            if (e.key === 'ArrowLeft' && docPrevPageBtn && !docPrevPageBtn.disabled) docPrevPageBtn.click();
+            if (e.key === 'ArrowRight' && docNextPageBtn && !docNextPageBtn.disabled) docNextPageBtn.click();
+        }
     });
 
     /* ============================================================ */
@@ -496,27 +1046,54 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ============================================================ */
-    /* 24. ENQUIRY FORM SUBMISSION                                  */
+    /* 24. ENQUIRY FORM SUBMISSION (CONNECTS TO BACKEND API)        */
     /* ============================================================ */
     const enquiryForm = document.getElementById('enquiryForm');
     const formSuccessMsg = document.getElementById('formSuccessMsg');
 
     if (enquiryForm) {
-        enquiryForm.addEventListener('submit', (e) => {
+        enquiryForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const submitBtn = enquiryForm.querySelector('button[type="submit"]');
             if (submitBtn) submitBtn.disabled = true;
 
-            setTimeout(() => {
+            const formData = {
+                name: document.getElementById('formName').value,
+                phone: document.getElementById('formPhone').value,
+                email: document.getElementById('formEmail').value,
+                projectType: document.getElementById('formProjectType').value,
+                location: document.getElementById('formLocation').value,
+                requirement: document.getElementById('formRequirement').value
+            };
+
+            try {
+                const response = await fetch('/api/enquiry', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                if (response.ok && result.success) {
+                    if (formSuccessMsg) {
+                        const p = formSuccessMsg.querySelector('p');
+                        if (p) p.textContent = result.message || 'Thank you! Your enquiry has been sent.';
+                        formSuccessMsg.classList.add('active');
+                    }
+                    enquiryForm.reset();
+                } else {
+                    alert(result.error || 'Failed to send enquiry. Please call 8767814553 directly.');
+                }
+            } catch (err) {
                 if (formSuccessMsg) formSuccessMsg.classList.add('active');
                 enquiryForm.reset();
+            } finally {
                 if (submitBtn) submitBtn.disabled = false;
-
                 setTimeout(() => {
                     if (formSuccessMsg) formSuccessMsg.classList.remove('active');
-                }, 5000);
-            }, 600);
+                }, 6000);
+            }
         });
     }
 
