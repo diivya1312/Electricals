@@ -849,12 +849,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSuryaSlide = 0;
 
     function goToSuryaSlide(index) {
+        if (!suryaSlides.length) return;
         suryaSlides.forEach(slide => slide.classList.remove('active'));
         suryaDots.forEach(dot => dot.classList.remove('active'));
-        
+
         currentSuryaSlide = (index + suryaSlides.length) % suryaSlides.length;
-        suryaSlides[currentSuryaSlide].classList.add('active');
-        suryaDots[currentSuryaSlide].classList.add('active');
+        if (suryaSlides[currentSuryaSlide]) suryaSlides[currentSuryaSlide].classList.add('active');
+        if (suryaDots[currentSuryaSlide]) suryaDots[currentSuryaSlide].classList.add('active');
     }
 
     if (suryaPrevBtn && suryaNextBtn) {

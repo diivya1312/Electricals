@@ -75,7 +75,7 @@ const server = http.createServer((req, res) => {
             status: 'ONLINE',
             business: 'AAISAHEB ELECTRICALS',
             owner: 'Rupesh Baburao Ughade',
-            location: 'Pune, Maharashtra, India',
+            location: 'Kothrud, Pune, Maharashtra, India',
             phone: '8767814553',
             timestamp: new Date().toISOString()
         }));
